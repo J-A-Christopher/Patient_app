@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:patient_app/idividual_doctor_screen.dart';
 import 'package:patient_app/login.dart';
+import 'package:provider/provider.dart';
+import './providers/doctors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +14,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(
+      create: (context) => Doctors(),
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             splashColor: Colors.transparent,
@@ -69,6 +74,9 @@ class MyApp extends StatelessWidget {
                   ),
                 ))
           ]),
-        ));
+        ),
+        routes: {'/individual-doc': (context) => IndividualDoctorScreen()},
+      ),
+    );
   }
 }

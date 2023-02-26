@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_jap_icons/medical_icons_icons.dart';
+import 'package:patient_app/avatar.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import './doctor_cartegory_screen.dart';
+import 'package:provider/provider.dart';
+import './providers/doctors.dart';
 
 TextEditingController searchEditingController = TextEditingController();
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   final String nameEditingController;
-  const Home({required this.nameEditingController});
+  const Home({super.key, required this.nameEditingController});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  File? _image;
+  final _picker = ImagePicker();
+  Future<void> _openImagePicker() async {
+    final XFile? pickedImage =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +41,34 @@ class Home extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.only(left: 20),
-                  child: Text('Hi $nameEditingController !',
-                      style: TextStyle(color: Colors.white, fontSize: 25)),
+                  child: Text('Hi ${widget.nameEditingController} !',
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 25)),
                 ),
-                Container(
-                  margin: const EdgeInsets.all(30),
-                  height: 65,
-                  width: 65,
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.green),
-                  child: const Icon(
-                    Icons.camera_alt_rounded,
-                    color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    _openImagePicker();
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const MyApp()),
+                    // );
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(30),
+                    height: 65,
+                    width: 65,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.green),
+                    child: _image != null
+                        ? Image.file(_image!, fit: BoxFit.cover)
+                        : const Icon(
+                            Icons.camera_alt_rounded,
+                            color: Colors.white,
+                          ),
+                    // child: const Icon(
+                    //   Icons.camera_alt_rounded,
+                    //   color: Colors.white,
+                    // ),
                   ),
                 ),
               ],
@@ -66,254 +104,7 @@ class Home extends StatelessWidget {
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
             ),
-            SizedBox(
-              height: 140,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  InkWell(
-                    onTap: () {},
-                    splashColor: Colors.green,
-                    highlightColor: Colors.blue,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 80,
-                          width: 80,
-                          margin: const EdgeInsets.only(left: 10),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.blueGrey),
-                          child: const Icon(
-                            Icons.hearing,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              'Ear',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            )),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    splashColor: Colors.green,
-                    highlightColor: Colors.blue,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 80,
-                          width: 80,
-                          margin: const EdgeInsets.only(left: 10),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.blueGrey),
-                          child: const Icon(
-                            Icons.heart_broken,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              'Heart',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            )),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    splashColor: Colors.green,
-                    highlightColor: Colors.blue,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 80,
-                          width: 80,
-                          margin: const EdgeInsets.only(left: 10),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.blueGrey),
-                          child: const Icon(
-                            Icons.health_and_safety,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              'Brain',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            )),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    splashColor: Colors.green,
-                    highlightColor: Colors.blue,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 80,
-                          width: 80,
-                          margin: const EdgeInsets.only(left: 10),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.blueGrey),
-                          child: const Icon(
-                            MedicalIcons.i_kidney,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              'Kidney',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            )),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    splashColor: Colors.green,
-                    highlightColor: Colors.blue,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 80,
-                          width: 80,
-                          margin: const EdgeInsets.only(left: 10),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.blueGrey),
-                          child: const Icon(
-                            MedicalIcons.i_womens_health,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              'Gyno',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            )),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    splashColor: Colors.green,
-                    highlightColor: Colors.blue,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 80,
-                          width: 80,
-                          margin: const EdgeInsets.only(left: 10),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.blueGrey),
-                          child: const Icon(
-                            Icons.child_care,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              'Pediatrician',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            )),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-              child: Text(
-                'Doctors Near You',
-                style: TextStyle(fontSize: 20, color: Colors.green),
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(20, 20, 0, 0),
-                        height: 200,
-                        width: 200,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(25.0),
-                          child: Image.asset(
-                            'Assets/img/doc1.jpeg',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                          top: 18,
-                          left: 20,
-                          child: Padding(
-                            padding: const EdgeInsets.all(7),
-                            child: SizedBox(
-                              width: 50,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black45),
-                                  onPressed: () {},
-                                  child: const Icon(
-                                    Icons.call,
-                                  )),
-                            ),
-                          )),
-                    ],
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(20, 20, 0, 0),
-                        height: 200,
-                        width: 200,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(25.0),
-                          child: Image.asset(
-                            'Assets/img/doc2.jpg',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                          top: 18,
-                          left: 20,
-                          child: Padding(
-                            padding: const EdgeInsets.all(7),
-                            child: SizedBox(
-                              width: 50,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black45),
-                                  onPressed: () {},
-                                  child: const Icon(
-                                    Icons.call,
-                                  )),
-                            ),
-                          )),
-                    ],
-                  )
-                ],
-              ),
-            )
+            const DoctorCat()
           ],
         ),
       ),

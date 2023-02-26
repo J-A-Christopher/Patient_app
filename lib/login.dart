@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:patient_app/intro.dart';
-import './login.dart';
 
 TextEditingController emailEditingController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 
 class Login extends StatelessWidget {
-  Login({
+  const Login({
     super.key,
   });
 
@@ -18,7 +17,7 @@ class Login extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(children: [
           Container(
-            height: 1200,
+            height: 800,
             width: 500,
             decoration: BoxDecoration(
                 color: Colors.black,
@@ -140,19 +139,6 @@ class Login extends StatelessWidget {
                         child: TextButton(
                             onPressed: () {},
                             child: const Text('Forgot Password?')),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.copyright_outlined,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            '2022 Dev Cj All Rights Reserved',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          )
-                        ],
                       ),
                     ],
                   ),

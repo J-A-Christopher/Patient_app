@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:patient_app/idividual_doctor_screen.dart';
 import 'package:patient_app/login.dart';
+import 'package:patient_app/providers/new_user_provider.dart';
+import 'package:patient_app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import './providers/doctors.dart';
 
@@ -14,13 +16,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => Doctors(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Doctors>(create: (context) => Doctors()),
+        ChangeNotifierProvider<UserProvider>(
+            create: (context) => UserProvider()),
+        ChangeNotifierProvider<NUserProvider>(
+            create: (context) => NUserProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
+            fontFamily: "Lato",
             hoverColor: Colors.transparent),
         home: Scaffold(
           backgroundColor: const Color.fromARGB(38, 69, 69, 69),
@@ -31,24 +40,27 @@ class MyApp extends StatelessWidget {
               color: const Color.fromARGB(100, 100, 100, 100),
               child: SvgPicture.asset('Assets/img/doctor.svg'),
             ),
-            const Positioned(
-              top: 510,
-              bottom: 200,
-              left: 30,
-              child: Text(
-                'Dev Cj',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 24,
-                ),
-              ),
-            ),
+            // const Positioned(
+            //   top: 510,
+            //   bottom: 200,
+            //   left: 30,
+            //   child: Text(
+            //     'Dev Cj',
+            //     style: TextStyle(
+            //       color: Colors.blue,
+            //       fontSize: 24,
+            //     ),
+            //   ),
+            // ),
             const Positioned(
               bottom: 120,
               left: 30,
               child: Text(
                 'Sick is easy, \n but health is hard.',
-                style: TextStyle(fontSize: 30, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                ),
               ),
             ),
             Positioned(
@@ -75,7 +87,9 @@ class MyApp extends StatelessWidget {
                 ))
           ]),
         ),
-        routes: {'/individual-doc': (context) => IndividualDoctorScreen()},
+        routes: {
+          '/individual-doc': (context) => const IndividualDoctorScreen()
+        },
       ),
     );
   }

@@ -24,6 +24,7 @@ class IndividualDoctorScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(docTitle!),
+          centerTitle: true,
         ),
         body: ListView.builder(
           itemBuilder: (context, index) {

@@ -19,7 +19,7 @@ class DoctorItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      elevation: 4,
+      elevation: 5,
       margin: const EdgeInsets.all(10),
       child: Column(
         children: [
@@ -56,24 +56,36 @@ class DoctorItem extends StatelessWidget {
                   ))
             ],
           ),
-          Text(
-            'Specialization:  $specialization',
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            'Experience:  $experience',
-            style: const TextStyle(
-              fontSize: 20,
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(
+              'Specialization:  $specialization',
+              style: const TextStyle(fontSize: 20),
             ),
           ),
-          Text(
-            'Language:  $language',
-            style: const TextStyle(
-              fontSize: 20,
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(
+              'Experience:  $experience',
+              style: const TextStyle(
+                fontSize: 20,
+              ),
             ),
           ),
-          ElevatedButton(
-              onPressed: () {}, child: const Text('Book an appointment'))
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(
+              'Language:  $language',
+              style: const TextStyle(
+                fontSize: 20,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: ElevatedButton(
+                onPressed: () {}, child: const Text('Book an appointment')),
+          )
         ],
       ),
     );

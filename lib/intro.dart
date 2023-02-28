@@ -4,8 +4,10 @@ import './appointments.dart';
 import './settings.dart';
 
 class Introduction extends StatefulWidget {
-  final String nameEditingController;
-  const Introduction({super.key, required this.nameEditingController});
+  // late TextEditingController namesd = TextEditingController();
+  // final namesd;
+
+  Introduction();
 
   @override
   State<Introduction> createState() => _IntroductionState();
@@ -14,10 +16,13 @@ class Introduction extends StatefulWidget {
 class _IntroductionState extends State<Introduction> {
   int pageIndex = 0;
   final pages = [
-    const Home(nameEditingController: 'Jesse'),
+    Home(
+        // nameSpace:widget.namesd,
+        ),
     const Appointments(),
     const Settings()
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

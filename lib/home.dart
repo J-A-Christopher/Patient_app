@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:patient_app/avatar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import './doctor_cartegory_screen.dart';
 import 'package:provider/provider.dart';
-import './providers/doctors.dart';
+import './providers/user_provider.dart';
 
 TextEditingController searchEditingController = TextEditingController();
 
 class Home extends StatefulWidget {
-  final String nameEditingController;
-  const Home({super.key, required this.nameEditingController});
+  // final String nameSpace;
+  const Home({
+    super.key,
+  });
 
   @override
   State<Home> createState() => _HomeState();
@@ -41,9 +42,12 @@ class _HomeState extends State<Home> {
               children: [
                 Container(
                   margin: const EdgeInsets.only(left: 20),
-                  child: Text('Hi ${widget.nameEditingController} !',
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 25)),
+                  child: Consumer<UserProvider>(
+                    builder: (ctx, user, child) => Text(
+                        'Hi  ${user.user.name} !',
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 25)),
+                  ),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -60,7 +64,9 @@ class _HomeState extends State<Home> {
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle, color: Colors.green),
                     child: _image != null
-                        ? Image.file(_image!, fit: BoxFit.cover)
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.file(_image!, fit: BoxFit.cover))
                         : const Icon(
                             Icons.camera_alt_rounded,
                             color: Colors.white,
